@@ -1,0 +1,7 @@
+body {
+    background-image: url(../res/img/1.jpg);
+    background-color: #00b0ff;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow:hidden;
+}
