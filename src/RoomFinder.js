@@ -5,9 +5,9 @@ import './css/mainPageStyles.css'
 class RoomFinder extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="">
                 <div className="row">
-                    <div className="col s12 m6 offset-m3">
+                    <div className="col s12 m4">
                         <div className="card">
                             <div className="card-content">
                                 <span className="card-title black-text">Выберите общежитие</span>
@@ -21,7 +21,7 @@ class RoomFinder extends Component {
                                 </div>
                             </div>
                             <div className="card-action">
-                                <input type="submit" className="btn" value="Применить"/>
+                                <input type="submit" className="btn" value="показать свободные комнаты" disabled/>
                             </div>
                         </div>
                     </div>
