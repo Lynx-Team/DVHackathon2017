@@ -5,12 +5,32 @@ import RoomFinder from './RoomFinder'
 import ModCard from "./ModCard";
 
 class App extends Component {
+    constructor(props, context) {
+        super(props, context);
+        this.state = {state: 'NOT_AUTH'};
+    }
+
+    auth() {
+        this.setState({state: 'AUTH'});
+    }
+
     render() {
-        return (
-            <div>
-                <ModCard />
-            </div>
-        );
+        switch (this.state.state) {
+            case 'NOT_AUTH':
+                return (
+                    <AuthCard auth={this.auth.bind(this)} />
+                );
+                break;
+            case 'AUTH':
+                return(
+                    <ModCard />
+                );
+                break;
+            default:
+                return(
+                    <h1>Error!!!</h1>
+                );
+        }
     }
 }
 

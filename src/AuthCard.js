@@ -27,7 +27,7 @@ class AuthCard extends Component {
                                 </form>
                             </div>
                             <div className="card-action">
-                                <input type="submit" className="btn" value="Войти"/>
+                                <input type="submit" className="btn" value="Войти" onClick={this.props.auth}/>
                             </div>
                         </div>
                     </div>
