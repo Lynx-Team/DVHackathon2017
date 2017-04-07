@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
 import './css/mainPageStyles.css'
+import './RoomInfo'
+import RoomInfo from "./RoomInfo";
 
 class RoomInfoFinder extends Component {
     render() {
         return (
             <div className="">
                 <div className="row">
-                    <div className="col s12 m4">
+                    <div className="col s12 m5">
                         <div className="card">
                             <div className="card-content">
                                 <span className="card-title black-text">Информация о комнате</span>
@@ -28,6 +30,8 @@ class RoomInfoFinder extends Component {
                             </div>
                         </div>
                     </div>
+                    // показывается при нажатии на кнопку
+                    <RoomInfo />
                 </div>
             </div>
         );
