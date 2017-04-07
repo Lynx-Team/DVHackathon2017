@@ -16,6 +16,8 @@ class ModCard extends Component {
                                     <div className="col s12 m6 l2"></div>
                                     <input type="submit" className="btn col s12 m6 l5" value="Информация"/>
                                 </div>
+                                <div className="card">
+                                </div>
                             </div>
                         </div>
                     </div>
