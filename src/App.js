@@ -12,15 +12,10 @@ class App extends Component {
         super(props, context);
         this.state = {state: 'NOT_AUTH'};
 
-        this.auth = this.auth.bind(this);
         this.chooseSettling = this.chooseSettling.bind(this);
         this.chooseInfo = this.chooseInfo.bind(this);
         this.home = this.home.bind(this);
         this.profile = this.profile.bind(this);
-    }
-
-    auth() {
-        this.setState({state: 'AUTH'});
     }
 
     home() {
@@ -45,10 +40,7 @@ class App extends Component {
 
         switch (this.state.state) {
             case 'NOT_AUTH':
-                content = <AuthCard auth={this.auth} />
-                break;
-            case 'AUTH':
-                content = <ModCard homePage={this.home()}/>
+                content = <AuthCard auth={this.home} />
                 break;
             case 'HOME':
                 content = <NewsCard />

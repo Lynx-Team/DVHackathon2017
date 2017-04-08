@@ -7,7 +7,10 @@ class Select extends Component {
         value: this.props.items[0],
     };
 
-    handleChange = (event, index, value) => this.setState({value});
+    handleChange = (event, index, value) => {
+        this.setState({value})
+        this.props.onChange(event, index, value);
+    };
 
     menuItems(values) {
         return this.props.items.map((item) => (

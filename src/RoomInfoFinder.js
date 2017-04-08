@@ -18,7 +18,7 @@ class RoomInfoFinder extends Component {
 
     showRoomInfo() {
         this.setState({roomInfo: <RoomInfo dorNumber={this.items[this.selected]}
-            roomNumber={this.roomNumber.value} isUpdate = "true"/>})
+            roomNumber={this.roomNumber.value} isUpdate="true"/>})
     }
 
     selectChanged(event, key, payload) {
