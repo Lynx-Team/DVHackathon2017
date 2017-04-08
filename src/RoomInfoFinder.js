@@ -29,7 +29,7 @@ class RoomInfoFinder extends Component {
         return (
             <div className="">
                 <div className="row">
-                    <div className="col s12 m4 offset-l1">
+                    <div className="col s12 m5 offset-l1">
                         <div className="card">
                             <div className="card-content">
                                 <TittleDiv text="Выберите комнату"/>
