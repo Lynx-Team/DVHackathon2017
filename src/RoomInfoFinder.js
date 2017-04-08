@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 
 import './css/mainPageStyles.css';
-import MultiSelect from './MultiSelect';
+import Select from './Select';
 import RoomInfo from "./RoomInfo";
 
 class RoomInfoFinder extends Component {
     constructor() {
         super();
 
+        this.items = ['6', '7', '8', '9'];
+        this.selected = 0;
         this.state = {roomInfo: null};
         this.showRoomInfo = this.showRoomInfo.bind(this);
+        this.selectChanged = this.selectChanged.bind(this);
     }
 
     showRoomInfo() {
-        this.setState({roomInfo: <RoomInfo roomNumber={this.roomNumber.value} />})
+        this.setState({roomInfo: <RoomInfo dorNumber={this.items[this.selected]}
+            roomNumber={this.roomNumber.value} />})
+    }
+
+    selectChanged(event, key, payload) {
+        this.selected = key;
     }
 
     render() {
@@ -24,7 +32,8 @@ class RoomInfoFinder extends Component {
                         <div className="card">
                             <div className="card-content">
                                 <span className="card-title black-text">Информация о комнате</span>
-                                <MultiSelect hintText="Номер общежития" items={['6', '7', '8', '9']} />
+                                <Select hintText="Номер общежития" items={this.items}
+                                    onChange={this.selectChanged} />
                                 <form>
                                     <div className="input-field">
                                         <input placeholder="Введите номер комнаты" type="text"
