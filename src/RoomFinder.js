@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import MultiSelect from './MultiSelect';
+import Select from './Select';
 import TittleDiv from './TittleDiv'
 import FreeRooms from './FreeRooms'
 
@@ -11,11 +11,17 @@ class RoomFinder extends Component {
         super();
         this.state = {freeRooms: null};
         this.dormitories = ['6', '7', '8', '9'];
+        this.selected = 0;
+        this.selectChanged = this.selectChanged.bind(this);
         this.showFreeRooms = this.showFreeRooms.bind(this);
     }
 
     showFreeRooms() {
-        this.setState({freeRooms: <FreeRooms />})
+        this.setState({freeRooms: <FreeRooms dormitory={this.dormitories[this.selected]} isUpdate="true"/>})
+    }
+
+    selectChanged(event, key, payload) {
+        this.selected = key;
     }
 
     render() {
@@ -26,7 +32,8 @@ class RoomFinder extends Component {
                         <div className="card">
                             <div className="card-content">
                                 <TittleDiv text="Выберите общежитие"/>
-                                <MultiSelect hintText="Общежития" items={this.dormitories} />
+                                <Select hintText="Общежития" items={this.dormitories}
+                                    onChange={this.selectChanged}/>
                             </div>
                             <div className="card-action">
                                 <input type="submit" className="btn" value="Показать свободные комнаты" onClick={this.showFreeRooms}/>
