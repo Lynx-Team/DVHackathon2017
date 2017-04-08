@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Web3 from 'web3';
 
 import AuthCard from './AuthCard';
 import RoomFinder from './RoomFinder';
@@ -15,6 +16,19 @@ class App extends Component {
         this.chooseInfo = this.chooseInfo.bind(this);
         this.home = this.home.bind(this);
         this.profile = this.profile.bind(this);
+
+        let web3RPC = window.web3;
+
+        if (typeof web3RPC !== 'undefined') {
+            web3RPC = new Web3(web3RPC.currentProvider);
+        } else {
+            console.log('No web3? You should consider trying MetaMask!')
+            web3RPC = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+
+        web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
+        window.web3RPC = web3RPC;
+        window.campusContractAddr = '0x845c2e1404bdd16a9f8ec70d2269e45a017afba5';
     }
 
     home() {

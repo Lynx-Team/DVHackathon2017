@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import './css/mainPageStyles.css';
 import Campus from '../build/contracts/Campus.json';
-import Web3 from 'web3';
 import ResidenDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
@@ -24,17 +23,7 @@ class RoomInfo extends Component {
     }
 
     updateInfo() {
-        var web3RPC = window.web3;
-
-        if (typeof web3RPC !== 'undefined') {
-            web3RPC = new Web3(web3RPC.currentProvider);
-        } else {
-            console.log('No web3? You should consider trying MetaMask!')
-            web3RPC = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-        }
-        web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
-
-        var campusInstance = web3RPC.eth.contract(Campus.abi).at('0x845c2e1404bdd16a9f8ec70d2269e45a017afba5');
+        var campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
         var dorNumber = this.props.dorNumber;
         var roomNumber = this.props.roomNumber;
         var sex = ['Пустая', 'М', 'Ж'];
