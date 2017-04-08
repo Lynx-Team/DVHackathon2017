@@ -1,103 +1,56 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.8;
 
-contract Campus {
-    address _owner;
-    
-    Dormitory[] doms;
-    
-    modifier onlyowner() {
-        if (msg.sender == _owner) _;
-    }
-    
-    function Campus() {
-        _owner = msg.sender;
-    }
-    
-    function AddDormitory(Dormitory d) onlyowner {
-        doms.length += 1;
-        doms[doms.length - 1] = d;
+contract Owned {
+    address owner;
+
+    function Owned() { owner = msg.sender; }
+
+    modifier onlyOwner {
+        if (msg.sender != owner)
+            throw;
+        _;
     }
 }
 
-contract Dormitory {
-    
-    Room[] rooms;
-    
-    address _owner;
-    uint _id;
-    
-    modifier onlyowner() {
-        if (msg.sender == _owner) _;
-    }
-    
-    function Dormitory(uint id) {
-        _owner = msg.sender;
-        _id = id;
-    }
-    
-    function AddRoom(Room r) onlyowner {
-        rooms.length += 1;
-        rooms[rooms.length - 1] = r;
-    }
-}
+contract Campus is Owned {
 
-contract Sex {
-    enum  State { Neutral, Male, Female }
-}
+    struct Dormitory {
+        uint number;
+        mapping (uint => Room) rooms;
+    }
 
-contract Resident {
-    
-    address _owner;
-    bool _allowed;
-    
-    Sex.State public _sex;
-    
-    modifier onlyowner() {
-        if (msg.sender == _owner) _;
+    struct Room {
+        uint number;
+        uint size;
+        uint fullness;
+        Sex sex;
     }
-    
-    function Resident(bool allowed, string sex) {
-        _allowed = allowed;
-        bytes memory b = bytes(sex);
-        if (b[0] == "M")
-            _sex = Sex.State.Male;
-        else
-            _sex = Sex.State.Female;
-        _owner = msg.sender;
-    }
-    
-    function Sex() external returns(Sex.State) {
-        return _sex;
-    }
-    
-    function Reserve(Room room) onlyowner {
-        room.Reserve(this);
-    } 
-}
 
-contract Room {
-    
-    address _owner;
-    uint _size;
-    uint _num;
-    Sex.State public _sex;
-    
-    Resident[] residents;
-    
-    modifier onlyowner() {
-        if (msg.sender == _owner) _;
+    struct Resident {
+        bool alowed;
+        Sex sex;
     }
-    
-    function Room(uint size, uint num) {
-        _size = size;
-        _num = num;
-        residents.length = size;
-        _sex = Sex.State.Neutral;
-        _owner = msg.sender;
+
+    enum Sex { Neutral, Male, Female }
+
+    mapping (uint => Dormitory) dormitories;
+
+    function addDormitory(uint _number) onlyOwner {
+        dormitories[_number] = Dormitory({number: _number});
     }
-    
-    function Reserve(Resident r) {
-        if (r.Sex() != _sex) throw;
+
+    function addRoom(uint dorNum, uint roomNum, uint _size) onlyOwner {
+        dormitories[dorNum].rooms[roomNum] = Room({
+            number: roomNum, size: _size,
+            fullness: 0, sex: Sex.Neutral
+        });
     }
-    
+
+    function getRoomInfo(uint dorNum, uint roomNum) returns (uint size, uint fullness, Sex sex) {
+        Room room = dormitories[dorNum].rooms[roomNum];
+
+        size = room.size;
+        fullness = room.fullness;
+        sex = room.sex;
+    }
 }

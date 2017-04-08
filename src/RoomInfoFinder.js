@@ -13,7 +13,7 @@ class RoomInfoFinder extends Component {
     }
 
     showRoomInfo() {
-        this.setState({roomInfo: <RoomInfo />})
+        this.setState({roomInfo: <RoomInfo roomNumber={this.roomNumber.value} />})
     }
 
     render() {
@@ -27,8 +27,9 @@ class RoomInfoFinder extends Component {
                                 <MultiSelect hintText="Номер общежития" items={['6', '7', '8', '9']} />
                                 <form>
                                     <div className="input-field">
-                                        <input placeholder="Введите номер комнаты" id="roomNumber" type="text"
-                                            className="validate"/>
+                                        <input placeholder="Введите номер комнаты" type="text"
+                                            className="validate" ref={(input) =>
+                                            { this.roomNumber = input; }}/>
                                     </div>
                                 </form>
                             </div>
