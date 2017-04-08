@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import './css/mainPageStyles.css'
 
 class AdminMessage extends Component {
-    constructor(){
-        super()
-    }
-
     render() {
         return (
                 <div className="row">

@@ -16,9 +16,9 @@ class NewsCard extends Component {
                             <div className="card-content">
                                 <TittleDiv text="Объявления"/>
                             </div>
-                            <AdminMessage Date={mes1[0]} text = {mes1[1]}/>
-                            <AdminMessage Date={mes2[0]} text = {mes2[1]}/>
-                            <AdminMessage Date={mes3[0]} text = {mes3[1]}/>
+                            <AdminMessage Date={mes1[0]} text={mes1[1]}/>
+                            <AdminMessage Date={mes2[0]} text={mes2[1]}/>
+                            <AdminMessage Date={mes3[0]} text={mes3[1]}/>
                         </div>
                     </div>
                 </div>
@@ -27,4 +27,3 @@ class NewsCard extends Component {
 }
 
 export default NewsCard;
-

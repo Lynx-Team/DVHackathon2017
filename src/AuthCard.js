@@ -14,7 +14,6 @@ class AuthCard extends Component {
     authentication () {
         let login = this.login.value;
         let pass  = this.password.value;
-        let residentAddress;
         var self = this;
 
         for (let i = 0; i < window.users.length; i++) {
@@ -31,15 +30,15 @@ class AuthCard extends Component {
                             window.campusInstance.RegisterResident(window.users[i].gender, login, function(err, res) {
                                 if (err)
                                     return;
-                                
+
                                 window.campusInstance.GetResident.call(login, function(err, res){
-                                    window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res); 
+                                    window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
                                     self.props.auth();
-                                });   
+                                });
                             })
                         }
                     });
-                }        
+                }
             }
         }
     }
