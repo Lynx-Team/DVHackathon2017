@@ -1,10 +1,12 @@
 body {
     background-image: url(../res/img/1.jpg);
-    background-color: #00b0ff;
+    background-color: #280A0A;
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: 100%;
-    overflow: hidden;
+    background-size: cover;
 }
+
 
 .kek {
     background-color: #26a69a;

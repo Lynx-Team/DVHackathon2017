@@ -78,7 +78,7 @@ class App extends Component {
         if (this.state.state !== 'NOT_AUTH') {
             menu = (
             <div className="row">
-                <nav className="col s12 m4 l10 offset-l1 kek">
+                <nav className="col s12 kek">
                     <div className="nav-wrapper kek">
                         <a href="#!" className="brand-logo right"><i className="material-icons right">store</i></a>
                         <ul id="nav-mobile" className="left hide-on-med-and-down">
