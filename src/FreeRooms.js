@@ -38,11 +38,11 @@ class RoomFinder extends Component {
         this.buttons = [];
         this.buttonRows = [];
 
-        for (var i = 0; i < 10; i++) {
+        for (let i = 0; i < 10; i++) {
             this.buttons.push(this.showButton("name"))
         }
 
-        for (var i = 0; i < this.buttons.length; i+=3) {
+        for (let i = 0; i < this.buttons.length; i+=3) {
             this.buttonRows.push(this.row(this.buttons[i],this.buttons[i + 1],this.buttons[i + 2]))
         }
 

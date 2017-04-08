@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './css/mainPageStyles.css';
-import Campus from '../build/contracts/Campus.json';
 import ResidenDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
@@ -23,13 +22,12 @@ class RoomInfo extends Component {
     }
 
     updateInfo() {
-        var campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
         var dorNumber = this.props.dorNumber;
         var roomNumber = this.props.roomNumber;
         var sex = ['Пустая', 'М', 'Ж'];
         var self = this;
 
-        campusInstance.GetRoomInfo.call(dorNumber, roomNumber, (err, res) => {
+        window.campusInstance.GetRoomInfo.call(dorNumber, roomNumber, (err, res) => {
             self.setState({
                 size: res[0].toNumber(),
                 fullness: res[1].toNumber(),
@@ -63,8 +61,8 @@ class RoomInfo extends Component {
             answer = (
                 <div>
                 <form>
-                    <FieldDiv text={txt}/>
-                    <FieldDiv text={txt1}/>
+                    <FieldDiv text={txt} />
+                    <FieldDiv text={txt1} />
                 </form>
                     <ResidenDiv />
                 </div>
@@ -73,8 +71,6 @@ class RoomInfo extends Component {
         else {
             answer = (<h3><span>Комната не найдена</span></h3>);
         }
-
-        this.state.isFind = null;
 
         return (
             <div className="col s12 m5">

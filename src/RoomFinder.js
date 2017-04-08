@@ -7,18 +7,16 @@ import FreeRooms from './FreeRooms'
 import './css/mainPageStyles.css'
 
 class RoomFinder extends Component {
-
     constructor() {
         super();
         this.state = {freeRooms: null};
+        this.dormitories = ['6', '7', '8', '9'];
         this.showFreeRooms = this.showFreeRooms.bind(this);
     }
-
 
     showFreeRooms() {
         this.setState({freeRooms: <FreeRooms />})
     }
-
 
     render() {
         return (
@@ -27,11 +25,11 @@ class RoomFinder extends Component {
                     <div className="col s12 m4 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <TittleDiv text="Выберите общажите"/>
-                                <MultiSelect hintText="Общежития" items={['6', '7', '8', '9']} />
+                                <TittleDiv text="Выберите общежитие"/>
+                                <MultiSelect hintText="Общежития" items={this.dormitories} />
                             </div>
                             <div className="card-action">
-                                <input type="submit" className="btn" value="показать свободные комнаты" onClick={this.showFreeRooms}/>
+                                <input type="submit" className="btn" value="Показать свободные комнаты" onClick={this.showFreeRooms}/>
                             </div>
                         </div>
                     </div>

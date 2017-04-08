@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
+import Campus from '../build/contracts/Campus.json';
 
 import AuthCard from './AuthCard';
 import RoomFinder from './RoomFinder';
@@ -29,6 +30,8 @@ class App extends Component {
         web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
         window.web3RPC = web3RPC;
         window.campusContractAddr = '0x845c2e1404bdd16a9f8ec70d2269e45a017afba5';
+        let campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
+        window.campusInstance = campusInstance;
     }
 
     home() {
