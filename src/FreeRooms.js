@@ -8,7 +8,7 @@ class RoomFinder extends Component {
 
         this.state = {roomInfo: null};
 
-        this.maxRoomsOnFloor = 50;
+        this.maxRoomsOnFloor = 10;
         this.maxFloors = 5;
         this.buttonRows = [];
 
@@ -65,18 +65,16 @@ class RoomFinder extends Component {
 
         return (
             <div className="">
-                <div>{this.state.roomInfo}</div>
                 <div className="row">
-                    <div className="col s12 m4 offset-l1">
+                    <div className="col s5 offset-s1 kek1">
                         <div className="card">
                             <div className="card-content">
                                 <TittleDiv text="Свободные комнаты"/>
-                                <div className="row">
                                     {this.buttonRows}
-                                </div>
                             </div>
                         </div>
                     </div>
+                    {this.state.roomInfo}
                 </div>
             </div>
         );

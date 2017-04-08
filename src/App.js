@@ -23,7 +23,7 @@ class App extends Component {
         if (typeof web3RPC !== 'undefined') {
             web3RPC = new Web3(web3RPC.currentProvider);
         } else {
-            console.log('No web3? You should consider trying MetaMask!')
+            console.log('No web3? You should consider trying MetaMask!');
             web3RPC = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         }
 
@@ -78,9 +78,9 @@ class App extends Component {
         if (this.state.state !== 'NOT_AUTH') {
             menu = (
             <div className="row">
-                <nav className="col s12 m4 l10 offset-l1">
-                    <div className="nav-wrapper">
-                        <a href="" className="brand-logo right">Общежитие ДВФУ</a>
+                <nav className="col s12 m4 l10 offset-l1 kek">
+                    <div className="nav-wrapper kek">
+                        <a href="#!" className="brand-logo right"><i className="material-icons right">store</i></a>
                         <ul id="nav-mobile" className="left hide-on-med-and-down">
                             <li><a onClick={this.home}>Главная</a></li>
                             <li><a onClick={this.chooseInfo}>Информация о комнатах</a></li>

@@ -3,5 +3,18 @@ body {
     background-color: #00b0ff;
     background-repeat: no-repeat;
     background-size: 100%;
-    overflow:hidden;
+    overflow: hidden;
+}
+
+.kek {
+    background-color: #26a69a;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.col {
+    overflow-y:scroll;
+}
+
+.kek1 {
+    height: 50vh;
 }
