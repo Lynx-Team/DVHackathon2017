@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import AuthCard from './AuthCard';
 import ModCard from "./ModCard";
@@ -48,10 +47,26 @@ class App extends Component {
                 content = <h1>Error!!!</h1>
         }
 
+        let menu = null;
+        if (this.state.state !== 'NOT_AUTH') {
+            menu = (
+                <nav>
+                    <div className="nav-wrapper">
+                        <a href="" className="brand-logo right">Общежитие ДВФУ</a>
+                        <ul id="nav-mobile" className="left hide-on-med-and-down">
+                            <li><a onClick={this.chooseSettling}>Заселение</a></li>
+                            <li><a onClick={this.chooseInfo}>Информация о комнате</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            );
+        }
+
         return(
-            <MuiThemeProvider>
+            <div>
+                {menu}
                 {content}
-            </MuiThemeProvider>
+            </div>
         );
     }
 }

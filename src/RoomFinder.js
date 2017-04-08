@@ -12,6 +12,7 @@ class RoomFinder extends Component {
                     <div className="col s12 m4">
                         <div className="card">
                             <div className="card-content">
+                                <span className="card-title black-text">Заселение</span>
                                 <MultiSelect hintText="Общежития" items={['6', '7', '8', '9']} />
                             </div>
                             <div className="card-action">
