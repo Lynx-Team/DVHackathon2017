@@ -6,6 +6,7 @@ import Web3 from 'web3';
 import ResidenDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
+import Preload from './Preload'
 
 
 class RoomInfo extends Component {
@@ -16,7 +17,7 @@ class RoomInfo extends Component {
             size: null,
             fullness: null,
             sex: null,
-            isFind: false
+            isFind: null
         }
 
         this.updateInfo = this.updateInfo.bind(this);
@@ -61,7 +62,12 @@ class RoomInfo extends Component {
             };
         }
 
-        if (this.state.isFind) {
+        if (this.state.isFind == null) {
+            answer = (
+                <Preload />
+            );
+        }
+        else if (this.state.isFind) {
             let txt = "Заселенность: " +  this.state.fullness + "/" + this.state.size;
             let txt1 = "Пол: " +  this.state.sex;
 
@@ -78,6 +84,8 @@ class RoomInfo extends Component {
         else {
             answer = (<h3><span>Комната не найдена</span></h3>);
         }
+
+        this.state.isFind = null;
 
         return (
             <div className="col s12 m5">
