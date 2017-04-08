@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import MultiSelect from './MultiSelect';
+
 import './css/mainPageStyles.css'
 
 class RoomFinder extends Component {
@@ -10,13 +12,7 @@ class RoomFinder extends Component {
                     <div className="col s12 m4">
                         <div className="card">
                             <div className="card-content">
-                                <span className="card-title black-text">Выберите общежитие</span>
-                                    <select multiple>
-                                        <option value="" disabled>Номер общежития</option>
-                                        <option value="1">8.2</option>
-                                        <option value="2">8.1</option>
-                                        <option value="3">6.1</option>
-                                    </select>
+                                <MultiSelect hintText="Общежития" items={['6', '7', '8', '9']} />
                             </div>
                             <div className="card-action">
                                 <input type="submit" className="btn" value="показать свободные комнаты"/>

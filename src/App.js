@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import AuthCard from './AuthCard';
 import ModCard from "./ModCard";
@@ -28,32 +29,30 @@ class App extends Component {
     }
 
     render() {
+        let content = null;
+
         switch (this.state.state) {
             case 'NOT_AUTH':
-                return (
-                    <AuthCard auth={this.auth} />
-                );
+                content = <AuthCard auth={this.auth} />
                 break;
             case 'AUTH':
-                return(
-                    <ModCard chooseSettling={this.chooseSettling} chooseInfo={this.chooseInfo} />
-                );
+                content = <ModCard chooseSettling={this.chooseSettling} chooseInfo={this.chooseInfo} />
                 break;
             case 'SETTLING':
-                return(
-                    <RoomFinder />
-                );
+                content = <RoomFinder />
                 break;
             case 'INFO':
-                return(
-                    <RoomInfoFinder />
-                );
+                content = <RoomInfoFinder />
                 break;
             default:
-                return(
-                    <h1>Error!!!</h1>
-                );
+                content = <h1>Error!!!</h1>
         }
+
+        return(
+            <MuiThemeProvider>
+                {content}
+            </MuiThemeProvider>
+        );
     }
 }
 
