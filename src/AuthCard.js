@@ -15,14 +15,16 @@ class AuthCard extends Component {
                                 <form>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input placeholder="Логин" id="firstname" type="text" className="validate"/>
-                                                <label htmlFor="firstname" className="active">Логин</label>
+                                            <i className="material-icons prefix">account_circle</i>
+                                            <input id="icon_prefix" type="text" className="validate"/>
+                                            <label htmlFor="icon_prefix">Логин</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input placeholder="Пароль" id="password" type="password" className="validate"/>
-                                                <label htmlFor="password" className="active">Пароль</label>
+                                           <i className="material-icons prefix">vpn_key</i>
+                                            <input id="icon_prefix" type="password" className="validate"/>
+                                            <label htmlFor="icon_prefix">Пароль</label>
                                         </div>
                                     </div>
                                 </form>
