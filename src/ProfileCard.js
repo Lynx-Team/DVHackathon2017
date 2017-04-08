@@ -6,13 +6,29 @@ import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
 
 class ProfileCard extends Component {
+    constructor() {
+        super();
+
+        var self = this;
+
+        this.state = {
+            myRoomText: ""
+        }
+
+        window.residentInstance.roomNum(function(err, res) {
+            self.setState({
+                myRoomText: "Моя комната: " + (res.toNumber() === 0 ? "'не заселен'" : res.toString())
+            });
+        });
+    }
+
     render() {
         return (
             <div className="row">
                 <div className="col s12 m4 l10 offset-l1">
                     <div className="card">
                         <div className="card-content">
-                            <TittleDiv text="Моя комната"/>
+                            <TittleDiv text={this.state.myRoomText}/>
                             <FieldDiv text="Номер комнаты: "/>
                             <FieldDiv text="Заселенность: "/>
                             <FieldDiv text="Пол: "/>

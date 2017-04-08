@@ -4,11 +4,32 @@ import "./Dormitory.sol";
 
 contract Campus is Owned {
     
-    mapping (address => Resident) roomContracts;
+    mapping (string => Resident) residents;
     mapping (uint => Dormitory) doms;
+    bool flag;
+
+     function Campus() { 
+        flag = false;
+    }
+
+    function SetFlag(bool val) {
+        flag = val;
+    }
     
-    function Campus() {
-        
+    function GetFlag() constant returns (bool res) {
+        res = flag;
+    }
+    
+    function ResidentExists(string _login) constant returns(bool res){
+        res = residents[_login].added();
+    }
+
+    function RegisterResident(uint _gender, string _login) {
+        residents[_login] = new Resident(_gender, _login); 
+    }
+
+    function GetResident(string _login) constant returns(Resident) {
+        return residents[_login];
     }
     
     function AddDormitory(uint num) onlyOwner {
@@ -19,7 +40,7 @@ contract Campus is Owned {
         doms[numDom].AddRoom(numRoom, capacity);
     }
     
-    function GetRoomInfo(uint numDom, uint numRoom) returns(uint capacity, uint occupancy, uint gender, bool isFound) {
+    function GetRoomInfo(uint numDom, uint numRoom) constant returns(uint capacity, uint occupancy, uint gender, bool isFound) {
         Room r = doms[numDom].GetRoom(numRoom);
         capacity = r.capacity();
         occupancy = r.occupancy();
