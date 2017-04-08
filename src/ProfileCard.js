@@ -19,6 +19,7 @@ class ProfileCard extends Component {
             self.setState({
                 myRoomText: "Моя комната: " + (res.toNumber() === 0 ? "'не заселен'" : res.toString())
             });
+
         });
     }
 
@@ -29,8 +30,7 @@ class ProfileCard extends Component {
                     <div className="card">
                         <div className="card-content">
                             <TittleDiv text={this.state.myRoomText}/>
-                            <FieldDiv text="Номер комнаты: "/>
-                            <FieldDiv text="Заселенность: "/>
+                            <FieldDiv text="Кол-во проживающих: "/>
                             <FieldDiv text="Пол: "/>
                             <ResidentDiv />
                             <ResidentDiv />
