@@ -15,6 +15,19 @@ body {
     overflow-y:scroll;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 .kek1 {
     height: 50vh;
+}
+
+.kek2 {
+    left: 50%;
+    top: 50%;
+}
+
+.kek3 {
+    text-align: center;
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TittleDiv from './TittleDiv'
+import AdminMessage from './AdminMessage'
 
 import './css/mainPageStyles.css'
 
@@ -12,6 +13,9 @@ class NewsCard extends Component {
                             <div className="card-content">
                                 <TittleDiv text="Объявления"/>
                             </div>
+                            <AdminMessage/>
+                            <AdminMessage/>
+                            <AdminMessage/>
                         </div>
                     </div>
                 </div>

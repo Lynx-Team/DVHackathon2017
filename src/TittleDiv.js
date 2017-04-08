@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import './css/mainPageStyles.css'
 
 class TittleDiv extends Component {
+
     render() {
         return (
             <div className="row">
+                <div className="row"></div>
                 <div className="input-field">
-                    <span className="card-title black-text col s12">{this.props.text}</span>
+                    <span className="card-title black-text">{this.props.text}</span>
                 </div>
                 <hr/>
             </div>
