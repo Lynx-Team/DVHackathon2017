@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 
-import './css/mainPageStyles.css'
-import './RoomInfo'
+import './css/mainPageStyles.css';
+import MultiSelect from './MultiSelect';
 import RoomInfo from "./RoomInfo";
 
 class RoomInfoFinder extends Component {
+    constructor() {
+        super();
+
+        this.state = {roomInfo: null};
+        this.showRoomInfo = this.showRoomInfo.bind(this);
+    }
+
+    showRoomInfo() {
+        this.setState({roomInfo: <RoomInfo />})
+    }
+
     render() {
         return (
             <div className="">
@@ -13,25 +24,21 @@ class RoomInfoFinder extends Component {
                         <div className="card">
                             <div className="card-content">
                                 <span className="card-title black-text">Информация о комнате</span>
-                                <select multiple>
-                                    <option value="" disabled>Номер общежития</option>
-                                    <option value="1">8.2</option>
-                                    <option value="2">8.1</option>
-                                    <option value="3">6.1</option>
-                                </select>
+                                <MultiSelect hintText="Номер общежития" items={['6', '7', '8', '9']} />
                                 <form>
                                     <div className="input-field">
-                                        <input placeholder="Введите номер комнаты" id="roomNumber" type="text" className="validate"/>
+                                        <input placeholder="Введите номер комнаты" id="roomNumber" type="text"
+                                            className="validate"/>
                                     </div>
                                 </form>
                             </div>
                             <div className="card-action">
-                                <input type="submit" className="btn" value="Показать информацию"/>
+                                <input type="submit" className="btn" value="Показать информацию"
+                                    onClick={this.showRoomInfo}/>
                             </div>
                         </div>
                     </div>
-                    // показывается при нажатии на кнопку
-                    <RoomInfo />
+                    <div>{this.state.roomInfo}</div>
                 </div>
             </div>
         );
