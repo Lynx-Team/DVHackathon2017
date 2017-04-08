@@ -12,18 +12,6 @@ class RoomInfo extends Component {
     constructor(props) {
         super(props);
 
-        const provider = new Web3.providers.HttpProvider('http://localhost:8545');
-        const contract = require('truffle-contract');
-        const campus = contract(Campus);
-        campus.setProvider(provider);
-        const web3RPC = new Web3(provider);
-
-        var campusInstance;
-        var dorNumber = this.props.dorNumber;
-        var roomNumber = this.props.roomNumber;
-        var sex = ['Пустая', 'М', 'Ж'];
-        var self = this;
-
         this.state = {
             size: null,
             fullness: null,
@@ -31,10 +19,27 @@ class RoomInfo extends Component {
             isFind: false
         }
 
-        campus.deployed().then(function(instance) {
-            campusInstance = instance;
-            return campusInstance.getRoomInfo.call(dorNumber, roomNumber);
-        }).then(function(res) {
+        this.updateInfo = this.updateInfo.bind(this);
+    }
+
+    updateInfo() {
+        var web3RPC = window.web3;
+
+        if (typeof web3RPC !== 'undefined') {
+            web3RPC = new Web3(web3RPC.currentProvider);
+        } else {
+            console.log('No web3? You should consider trying MetaMask!')
+            web3RPC = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+        }
+        web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
+
+        var campusInstance = web3RPC.eth.contract(Campus.abi).at('0x87eddc60af42cf03f1347a9147e878143e98f14e');
+        var dorNumber = this.props.dorNumber;
+        var roomNumber = this.props.roomNumber;
+        var sex = ['Пустая', 'М', 'Ж'];
+        var self = this;
+
+        campusInstance.getRoomInfo.call(dorNumber, roomNumber, (err, res) => {
             self.setState({
                 size: res[0].toNumber(),
                 fullness: res[1].toNumber(),
@@ -46,22 +51,25 @@ class RoomInfo extends Component {
 
     render() {
         let answer;
+        let tittle = "Комната номер " + this.props.dorNumber + "." + this.props.roomNumber;
+        if (this.props.isUpdate) {
+            this.updateInfo();
+            this.props = {
+                dorNumber: this.props.dorNumber,
+                roomNumber: this.props.roomNumber,
+                isUpdate: false
+            };
+        }
 
-        if (!this.state.isFind) {
+        if (this.state.isFind) {
+            let txt = "Заселенность: " +  this.state.fullness + "/" + this.state.size;
+            let txt1 = "Пол: " +  this.state.sex;
+
             answer = (
                 <div>
                 <form>
-                    <div className="row">
-                        <div className="input-field s12 m6">
-                           <span className="">Заселенность: {this.state.fullness}/{this.state.size}</span>
-                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field s12 m6">
-                          <span className="title black-text row s12 m4">Пол: {this.state.sex}</span>
-                        </div>
-                    </div>
-                    <FieldDiv />
+                    <FieldDiv text={txt}/>
+                    <FieldDiv text={txt1}/>
                 </form>
                     <ResidenDiv />
                 </div>
@@ -75,9 +83,7 @@ class RoomInfo extends Component {
             <div className="col s12 m5">
                 <div className="card">
                     <div className="card-content">
-                        <TittleDiv />
-                        <span className="card-title black-text">Комната номер {this.props.roomNumber}</span>
-                        <hr/>
+                        <TittleDiv text={tittle}/>
                         {answer}
                     </div>
                     <div className="card-action">

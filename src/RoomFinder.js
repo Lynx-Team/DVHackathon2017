@@ -13,7 +13,7 @@ class RoomFinder extends Component {
                     <div className="col s12 m4 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <TittleDiv />
+                                <TittleDiv text="Выберите общажите"/>
                                 <MultiSelect hintText="Общежития" items={['6', '7', '8', '9']} />
                             </div>
                             <div className="card-action">

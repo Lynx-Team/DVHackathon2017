@@ -10,7 +10,7 @@ class NewsCard extends Component {
                     <div className="col s12 m4 l10 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <TittleDiv />
+                                <TittleDiv text="Объявления"/>
                             </div>
                         </div>
                     </div>

@@ -12,10 +12,10 @@ class ProfileCard extends Component {
                 <div className="col s12 m4 l10 offset-l1">
                     <div className="card">
                         <div className="card-content">
-                            <TittleDiv />
-                            <FieldDiv />
-                            <FieldDiv />
-                            <FieldDiv />
+                            <TittleDiv text="Моя комната"/>
+                            <FieldDiv text="Номер комнаты: "/>
+                            <FieldDiv text="Заселенность: "/>
+                            <FieldDiv text="Пол: "/>
                             <ResidentDiv />
                             <ResidentDiv />
                         </div>

@@ -7,7 +7,7 @@ class TittleDiv extends Component {
         return (
             <div className="row">
                 <div className="input-field">
-                    <span className="card-title black-text col s12">Название чего-то</span>
+                    <span className="card-title black-text col s12">{this.props.text}</span>
                 </div>
                 <hr/>
             </div>

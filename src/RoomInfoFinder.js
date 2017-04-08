@@ -18,7 +18,7 @@ class RoomInfoFinder extends Component {
 
     showRoomInfo() {
         this.setState({roomInfo: <RoomInfo dorNumber={this.items[this.selected]}
-            roomNumber={this.roomNumber.value} />})
+            roomNumber={this.roomNumber.value} isUpdate = "true"/>})
     }
 
     selectChanged(event, key, payload) {
@@ -32,7 +32,7 @@ class RoomInfoFinder extends Component {
                     <div className="col s12 m5 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <TittleDiv />
+                                <TittleDiv text="Выберите комнату"/>
                                 <Select hintText="Номер общежития" items={this.items}
                                     onChange={this.selectChanged} />
                                 <form>

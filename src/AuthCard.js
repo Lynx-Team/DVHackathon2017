@@ -11,7 +11,7 @@ class AuthCard extends Component {
                     <div className="col s12 m6 offset-m3">
                         <div className="card">
                             <div className="card-content">
-                                <TittleDiv />
+                                <TittleDiv text="Войти"/>
                                 <form>
                                     <div className="row">
                                         <div className="input-field col s12">
