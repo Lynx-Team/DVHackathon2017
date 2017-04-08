@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import AuthCard from './AuthCard';
-import ModCard from "./ModCard";
 import RoomFinder from './RoomFinder';
 import RoomInfoFinder from './RoomInfoFinder';
 import NewsCard from './NewsCard'
