@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './css/mainPageStyles.css'
+import TittleDiv from "./TittleDiv";
 
 class AuthCard extends Component {
     render() {
@@ -10,7 +11,7 @@ class AuthCard extends Component {
                     <div className="col s12 m6 offset-m3">
                         <div className="card">
                             <div className="card-content">
-                                <span className="card-title black-text">Войти</span>
+                                <TittleDiv />
                                 <form>
                                     <div className="row">
                                         <div className="input-field col s12">

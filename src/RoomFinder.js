@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import MultiSelect from './MultiSelect';
+import TittleDiv from './TittleDiv'
 
 import './css/mainPageStyles.css'
 
@@ -9,10 +10,10 @@ class RoomFinder extends Component {
         return (
             <div className="">
                 <div className="row">
-                    <div className="col s12 m4">
+                    <div className="col s12 m4 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <span className="card-title black-text">Заселение</span>
+                                <TittleDiv />
                                 <MultiSelect hintText="Общежития" items={['6', '7', '8', '9']} />
                             </div>
                             <div className="card-action">

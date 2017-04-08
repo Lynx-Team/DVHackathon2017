@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import './css/mainPageStyles.css';
 import Select from './Select';
-import RoomInfo from "./RoomInfo";
+import RoomInfo from './RoomInfo';
+import TittleDiv from './TittleDiv'
 
 class RoomInfoFinder extends Component {
     constructor() {
@@ -28,10 +29,10 @@ class RoomInfoFinder extends Component {
         return (
             <div className="">
                 <div className="row">
-                    <div className="col s12 m5">
+                    <div className="col s12 m5 offset-l1">
                         <div className="card">
                             <div className="card-content">
-                                <span className="card-title black-text">Информация о комнате</span>
+                                <TittleDiv />
                                 <Select hintText="Номер общежития" items={this.items}
                                     onChange={this.selectChanged} />
                                 <form>

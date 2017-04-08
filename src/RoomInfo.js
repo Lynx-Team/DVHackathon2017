@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import './css/mainPageStyles.css';
 import Campus from '../build/contracts/Campus.json';
 import Web3 from 'web3';
+import ResidenDiv from './ResidentDiv'
+import FieldDiv from './FieldDiv'
+import TittleDiv from './TittleDiv'
+
 
 class RoomInfo extends Component {
     constructor(props) {
@@ -43,16 +47,24 @@ class RoomInfo extends Component {
     render() {
         let answer;
 
-        if (this.state.isFind) {
+        if (!this.state.isFind) {
             answer = (
+                <div>
                 <form>
-                    <div className="input-field s12 m6">
-                        <span className="">Заселенность: {this.state.fullness}/{this.state.size}</span>
+                    <div className="row">
+                        <div className="input-field s12 m6">
+                           <span className="">Заселенность: {this.state.fullness}/{this.state.size}</span>
+                         </div>
                     </div>
-                    <div className="input-field s12 m6">
-                        <span className="title black-text row s12 m4">Пол: {this.state.sex}</span>
+                    <div className="row">
+                        <div className="input-field s12 m6">
+                          <span className="title black-text row s12 m4">Пол: {this.state.sex}</span>
+                        </div>
                     </div>
+                    <FieldDiv />
                 </form>
+                    <ResidenDiv />
+                </div>
             );
         }
         else {
@@ -63,7 +75,9 @@ class RoomInfo extends Component {
             <div className="col s12 m5">
                 <div className="card">
                     <div className="card-content">
+                        <TittleDiv />
                         <span className="card-title black-text">Комната номер {this.props.roomNumber}</span>
+                        <hr/>
                         {answer}
                     </div>
                     <div className="card-action">
