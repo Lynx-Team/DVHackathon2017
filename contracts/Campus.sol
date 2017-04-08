@@ -24,6 +24,7 @@ contract Campus is Owned {
         uint size;
         uint fullness;
         Sex sex;
+        bool added;
     }
 
     struct Resident {
@@ -42,13 +43,20 @@ contract Campus is Owned {
     function addRoom(uint dorNum, uint roomNum, uint _size) onlyOwner {
         dormitories[dorNum].rooms[roomNum] = Room({
             number: roomNum, size: _size,
-            fullness: 0, sex: Sex.Neutral
+            fullness: 0, sex: Sex.Neutral,
+            added: true
         });
     }
 
-    function getRoomInfo(uint dorNum, uint roomNum) returns (uint size, uint fullness, Sex sex) {
+    function getRoomInfo(uint dorNum, uint roomNum) returns (uint size, uint fullness, Sex sex, bool isFind) {
         Room room = dormitories[dorNum].rooms[roomNum];
 
+        if (room.added) {
+            isFind = true;
+        }
+        else {
+            isFind = false;
+        }
         size = room.size;
         fullness = room.fullness;
         sex = room.sex;

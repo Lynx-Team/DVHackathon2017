@@ -23,7 +23,8 @@ class RoomInfo extends Component {
         this.state = {
             size: null,
             fullness: null,
-            sex: null
+            sex: null,
+            isFind: false
         }
 
         campus.deployed().then(function(instance) {
@@ -33,25 +34,37 @@ class RoomInfo extends Component {
             self.setState({
                 size: res[0].toNumber(),
                 fullness: res[1].toNumber(),
-                sex: sex[res[2].toNumber()]
+                sex: sex[res[2].toNumber()],
+                isFind: res[3]
             });
         });
     }
 
     render() {
+        let answer;
+
+        if (this.state.isFind) {
+            answer = (
+                <form>
+                    <div className="input-field s12 m6">
+                        <span className="">Заселенность: {this.state.fullness}/{this.state.size}</span>
+                    </div>
+                    <div className="input-field s12 m6">
+                        <span className="title black-text row s12 m4">Пол: {this.state.sex}</span>
+                    </div>
+                </form>
+            );
+        }
+        else {
+            answer = (<h3><span>Комната не найдена</span></h3>);
+        }
+
         return (
             <div className="col s12 m5">
                 <div className="card">
                     <div className="card-content">
                         <span className="card-title black-text">Комната номер {this.props.roomNumber}</span>
-                        <form>
-                        <div className="input-field s12 m6">
-                            <span className="">Заселенность: {this.state.fullness}/{this.state.size}</span>
-                        </div>
-                        <div className="input-field s12 m6">
-                            <span className="title black-text row s12 m4">Пол: {this.state.sex}</span>
-                        </div>
-                        </form>
+                        {answer}
                     </div>
                     <div className="card-action">
                         <input type="submit" className="btn" value="Заселиться в комнату"/>
