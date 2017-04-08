@@ -73,7 +73,7 @@ class RoomInfo extends Component {
         }
 
         return (
-            <div className="col s6">
+            <div className="col s6 m6 l6">
                 <div className="card">
                     <div className="card-content">
                         <TittleDiv text={tittle}/>

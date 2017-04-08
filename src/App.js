@@ -17,6 +17,7 @@ class App extends Component {
         this.chooseInfo = this.chooseInfo.bind(this);
         this.home = this.home.bind(this);
         this.profile = this.profile.bind(this);
+        this.reAuth = this.reAuth.bind(this);
 
         let web3RPC = window.web3;
 
@@ -36,6 +37,10 @@ class App extends Component {
 
     home() {
         this.setState({state: 'HOME'});
+    }
+
+    reAuth() {
+        this.setState({state: 'NOT_AUTH'});
     }
 
     profile() {
@@ -80,7 +85,7 @@ class App extends Component {
             <div className="row">
                 <nav className="col s12 kek">
                     <div className="nav-wrapper kek">
-                        <a href="#!" className="brand-logo right"><i className="material-icons right">store</i></a>
+                        <a href="#!" className="brand-logo right" onClick={this.reAuth}><i className="material-icons right">power_settings_new</i></a>
                         <ul id="nav-mobile" className="left hide-on-med-and-down">
                             <li><a onClick={this.home}>Главная</a></li>
                             <li><a onClick={this.chooseInfo}>Информация о комнатах</a></li>
