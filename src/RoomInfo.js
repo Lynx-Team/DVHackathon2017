@@ -33,13 +33,13 @@ class RoomInfo extends Component {
         }
         web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
 
-        var campusInstance = web3RPC.eth.contract(Campus.abi).at('0x87eddc60af42cf03f1347a9147e878143e98f14e');
+        var campusInstance = web3RPC.eth.contract(Campus.abi).at('0x845c2e1404bdd16a9f8ec70d2269e45a017afba5');
         var dorNumber = this.props.dorNumber;
         var roomNumber = this.props.roomNumber;
         var sex = ['Пустая', 'М', 'Ж'];
         var self = this;
 
-        campusInstance.getRoomInfo.call(dorNumber, roomNumber, (err, res) => {
+        campusInstance.GetRoomInfo.call(dorNumber, roomNumber, (err, res) => {
             self.setState({
                 size: res[0].toNumber(),
                 fullness: res[1].toNumber(),

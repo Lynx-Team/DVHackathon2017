@@ -1,64 +1,29 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.2;
 
-contract Owned {
-    address owner;
-
-    function Owned() { owner = msg.sender; }
-
-    modifier onlyOwner {
-        if (msg.sender != owner)
-            throw;
-        _;
-    }
-}
+import "./Dormitory.sol";
 
 contract Campus is Owned {
-
-    struct Dormitory {
-        uint number;
-        mapping (uint => Room) rooms;
+    
+    mapping (address => Resident) roomContracts;
+    mapping (uint => Dormitory) doms;
+    
+    function Campus() {
+        
     }
-
-    struct Room {
-        uint number;
-        uint size;
-        uint fullness;
-        Sex sex;
-        bool added;
+    
+    function AddDormitory(uint num) onlyOwner {
+        doms[num] = new Dormitory(num);
     }
-
-    struct Resident {
-        bool alowed;
-        Sex sex;
+    
+    function AddRoom(uint numDom, uint numRoom, uint capacity) onlyOwner {
+        doms[numDom].AddRoom(numRoom, capacity);
     }
-
-    enum Sex { Neutral, Male, Female }
-
-    mapping (uint => Dormitory) dormitories;
-
-    function addDormitory(uint _number) onlyOwner {
-        dormitories[_number] = Dormitory({number: _number});
-    }
-
-    function addRoom(uint dorNum, uint roomNum, uint _size) onlyOwner {
-        dormitories[dorNum].rooms[roomNum] = Room({
-            number: roomNum, size: _size,
-            fullness: 0, sex: Sex.Neutral,
-            added: true
-        });
-    }
-
-    function getRoomInfo(uint dorNum, uint roomNum) returns (uint size, uint fullness, Sex sex, bool isFind) {
-        Room room = dormitories[dorNum].rooms[roomNum];
-
-        if (room.added) {
-            isFind = true;
-        }
-        else {
-            isFind = false;
-        }
-        size = room.size;
-        fullness = room.fullness;
-        sex = room.sex;
+    
+    function GetRoomInfo(uint numDom, uint numRoom) returns(uint capacity, uint occupancy, uint gender, bool isFound) {
+        Room r = doms[numDom].GetRoom(numRoom);
+        capacity = r.capacity();
+        occupancy = r.occupancy();
+        gender = uint(r.gender());
+        isFound = r.added();
     }
 }
