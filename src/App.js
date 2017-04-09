@@ -7,6 +7,7 @@ import RoomFinder from './RoomFinder';
 import RoomInfoFinder from './RoomInfoFinder';
 import NewsCard from './NewsCard'
 import ProfileCard from "./ProfileCard";
+import SwapQueryCard from "./SwapQueryCard";
 
 class App extends Component {
     constructor(props, context) {
@@ -18,6 +19,7 @@ class App extends Component {
         this.home = this.home.bind(this);
         this.profile = this.profile.bind(this);
         this.reAuth = this.reAuth.bind(this);
+        this.roomSwapQuerys = this.roomSwapQuerys.bind(this);
 
         let web3RPC = window.web3;
 
@@ -52,6 +54,10 @@ class App extends Component {
         this.setState({state: 'NOT_AUTH'});
     }
 
+    roomSwapQuerys() {
+        this.setState({state: 'SWAP_QUERY'});
+    }
+
     profile() {
         this.setState({state: 'PROFILE'});
     }
@@ -84,6 +90,9 @@ class App extends Component {
             case 'PROFILE':
                 content = <ProfileCard />
                 break;
+            case 'SWAP_QUERY':
+                content = <SwapQueryCard />
+                break;
             default:
                 content = <h1>Error!!!</h1>
         }
@@ -97,6 +106,7 @@ class App extends Component {
                         <a href="#!" className="brand-logo right" onClick={this.reAuth}><i className="material-icons right">power_settings_new</i></a>
                         <ul id="nav-mobile" className="left hide-on-med-and-down">
                             <li><a onClick={this.home}>Главная</a></li>
+                            <li><a onClick={this.roomSwapQuerys}>Запросы на обмен</a></li>
                             <li><a onClick={this.chooseInfo}>Информация о комнатах</a></li>
                             <li><a onClick={this.profile}>Профиль</a></li>
                             <li><a onClick={this.chooseSettling}>Заселение</a></li>
