@@ -13,6 +13,18 @@ body {
     border-radius: 0px 0px 10px 10px;
 }
 
+.veto {
+    background-color: red;
+}
+
+.veto:active {
+    background-color: #C00B0B;
+}
+
+.veto:hover {
+    background-color: #D40C0C;
+}
+
 .col {
     overflow-y:scroll;
 }
@@ -22,12 +34,19 @@ body {
 }
 
 .kek1 {
-    height: 50vh;
+    height: 80vh;
 }
 
 .kek2 {
     left: 50%;
     top: 50%;
+}
+
+hr {
+    border: none; /* Убираем границу для браузера Firefox */
+    color: black; /* Цвет линии для остальных браузеров */
+    background-color: black; /* Цвет линии для браузера Firefox и Opera */
+    height: 2px; /* Толщина линии */
 }
 
 .kek3 {
