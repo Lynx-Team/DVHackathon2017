@@ -30,11 +30,11 @@ class App extends Component {
 
         web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
         window.web3RPC = web3RPC;
-        window.campusContractAddr = '0x2ec92ed9b6ba3ccf0500423d331ed2d95a1f948e';
+        window.campusContractAddr = '0xbdc2b8cb55e7d5700db2873249550c9d01596de7';
         let campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
         window.campusInstance = campusInstance;
 
-        window.users = 
+        window.users =
         [
             {login: "terekhov.de", password: "qwe123", gender: 1},
             {login: "prikhodko.od", password: "wert", gender: 1},

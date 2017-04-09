@@ -25,12 +25,19 @@ contract Campus is Owned {
         doms[num] = new Dormitory(num);
     }
 
+    function settleResidentInRoom(string login, uint numDom, uint numRoom) {
+        Room room = doms[numDom].GetRoom(numRoom);
+        Resident res = residents[login];
+
+        room.AddResident(res);
+    }
+
     function AddRoom(uint numDom, uint numRoom, uint capacity) onlyOwner {
         doms[numDom].AddRoom(numRoom, capacity);
     }
 
     function GetRoom(uint numDom, uint numRoom) constant returns(Room) {
-            return doms[numDom].GetRoom(numRoom);
+        return doms[numDom].GetRoom(numRoom);
     }
 
     function GetRoomInfo(uint numDom, uint numRoom) constant returns(uint capacity, uint occupancy, uint gender, bool isFound) {

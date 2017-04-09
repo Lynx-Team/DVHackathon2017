@@ -24,13 +24,8 @@ class RoomInfo extends Component {
     }
 
     settle() {
-        window.campusInstance.GetRoom(this.props.dorNumber, this.props.roomNumber, function(err, res) {
-            let roomAddr = res;
-            let roomInstance = window.web3RPC.eth.contract(Room.abi).at(roomAddr);
-
-            roomInstance.AddResident(window.residentInstance.address, function (err, res) {
+        window.campusInstance.settleResidentInRoom(window.residentInstance.login(), this.props.dorNumber, this.props.roomNumbe, function (err, res) {
                 console.log(err, res);
-            });
         });
     }
 

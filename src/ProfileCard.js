@@ -9,17 +9,60 @@ class ProfileCard extends Component {
     constructor() {
         super();
 
-        var self = this;
-
         this.state = {
-            myRoomText: ""
-        }
+            myRoom: '-',
+            myDerm: '-',
+            capacity: 0,
+            occupancy: 0,
+            gender: '-',
+            isFound: false
+        };
 
+        var self = this;
         window.residentInstance.roomNum(function(err, res) {
             self.setState({
-                myRoomText: "Моя комната: " + (res.toNumber() === 0 ? "'не заселен'" : res.toString())
+                myRoom: res.toNumber() === 0 ? '-' : res.toNumber(),
+                myDerm: self.state.myDerm
             });
 
+            window.residentInstance.dormNum(function(err, res) {
+                self.setState({
+                    myRoom: self.state.myRoom,
+                    myDerm: res.toNumber() === 0 ? '-' : res.toNumber()
+                });
+
+                if (self.state.myRoom === '-' || self.state.myDerm === '-')
+                    return;
+
+                window.campusInstance.GetRoomInfo(self.state.myDerm, self.state.myRoom, function(err, res) {
+                    if (res[3]) {
+                        let occupancy = res[1].toNumber();
+
+                        for (let i = 0; i < occupancy; i++) {
+
+                        }
+
+                        self.setState({
+                            myRoom: self.state.myRoom,
+                            myDerm: self.state.myDerm,
+                            capacity: res[0].toNumber(),
+                            occupancy: res[1].toNumber(),
+                            gender: res[2].toNumber() === 0 ? 'Пустая' : res[2].toNumber() === 1 ? 'М' : 'Ж',
+                            isFound: true
+                        });
+                    }
+                    else {
+                        self.setState({
+                            myRoom: self.state.myRoom,
+                            myDerm: self.state.myDerm,
+                            capacity: 0,
+                            occupancy: 0,
+                            gender: '-',
+                            isFound: false
+                        });
+                    }
+                });
+            });
         });
     }
 
@@ -29,9 +72,10 @@ class ProfileCard extends Component {
                 <div className="col s12 m4 l10 offset-l1">
                     <div className="card">
                         <div className="card-content">
-                            <TittleDiv text={this.state.myRoomText}/>
-                            <FieldDiv text="Кол-во проживающих: "/>
-                            <FieldDiv text="Пол: "/>
+                            <TittleDiv text={"Корпус:" + this.state.myDerm + " | Комната:" + this.state.myRoom}/>
+                            <FieldDiv text={"Макслимальное кол-во проживающих: " + this.state.capacity}/>
+                            <FieldDiv text={"Кол-во проживающих: " + this.state.occupancy}/>
+                            <FieldDiv text={"Пол: " + this.state.gender}/>
                             <ResidentDiv />
                             <ResidentDiv />
                         </div>
@@ -46,4 +90,3 @@ class ProfileCard extends Component {
 }
 
 export default ProfileCard;
-
