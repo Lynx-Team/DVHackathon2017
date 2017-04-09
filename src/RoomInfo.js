@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import Room from '../build/contracts/Resident.json'; 
 
 import './css/mainPageStyles.css';
 import ResidenDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
 import Preload from './Preload'
-import Room from '../build/contracts/Room.json'
-
 
 class RoomInfo extends Component {
     constructor(props) {
@@ -24,8 +23,10 @@ class RoomInfo extends Component {
     }
 
     settle() {
-        window.campusInstance.settleResidentInRoom(window.residentInstance.login(), this.props.dorNumber, this.props.roomNumbe, function (err, res) {
-                console.log(err, res);
+        window.campusInstance.GetRoom(this.props.dorNumber, this.props.roomNumber, function(err, res) {
+            let roomAddr = res;
+            let roomInstance = window.web3RPC.eth.contract(Room.abi).at(roomAddr);
+            roomInstance.AddResident(window.residentInstance.address, function (err, res) { });
         });
     }
 
@@ -89,7 +90,7 @@ class RoomInfo extends Component {
                     </div>
                     <div className="card-action">
                         <input type="submit" className="btn" value="Заселиться в комнату"
-                            onClick = {this.settle}/>
+                            onClick={this.settle}/>
                     </div>
                 </div>
             </div>
