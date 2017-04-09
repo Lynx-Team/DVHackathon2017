@@ -6,19 +6,8 @@ contract Campus is Owned {
     
     mapping (string => Resident) residents;
     mapping (uint => Dormitory) doms;
-    bool flag;
 
-     function Campus() { 
-        flag = false;
-    }
-
-    function SetFlag(bool val) {
-        flag = val;
-    }
-    
-    function GetFlag() constant returns (bool res) {
-        res = flag;
-    }
+     function Campus() { }
     
     function ResidentExists(string _login) constant returns(bool res){
         res = residents[_login].added();

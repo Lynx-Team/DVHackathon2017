@@ -7,6 +7,7 @@ contract Resident {
     address wallet;
     Gender.g public gender;
     uint public roomNum;
+    uint public dormNum;
     string public login;
     bool public added;
     
@@ -18,8 +19,11 @@ contract Resident {
         added = true;
     }
     
-    function SetRoomNum(uint num) {
+    function SetRoom(uint num) {
         roomNum = num;
     }
     
+    function SetDorm(uint num) {
+        dormNum = num;
+    }
 }

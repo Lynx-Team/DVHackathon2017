@@ -13,7 +13,7 @@ contract Dormitory is Owned {
     }
     
     function AddRoom (uint _num, uint capacity) onlyOwner {
-        rooms[_num] = new Room(_num, capacity);
+        rooms[_num] = new Room(_num, capacity, num);
     }
     
     function GetRoom (uint _num) returns(Room) {
