@@ -5,6 +5,7 @@ import ResidenDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
 import Preload from './Preload'
+import Room from '../build/contracts/Room.json'
 
 
 class RoomInfo extends Component {
@@ -19,6 +20,18 @@ class RoomInfo extends Component {
         }
 
         this.updateInfo = this.updateInfo.bind(this);
+        this.settle = this.settle.bind(this);
+    }
+
+    settle() {
+        window.campusInstance.GetRoom(this.props.dorNumber, this.props.roomNumber, function(err, res) {
+            let roomAddr = res;
+            let roomInstance = window.web3RPC.eth.contract(Room.abi).at(roomAddr);
+
+            roomInstance.AddResident(window.residentInstance.address, function (err, res) {
+                console.log(err, res);
+            });
+        });
     }
 
     updateInfo() {
@@ -80,7 +93,8 @@ class RoomInfo extends Component {
                         {answer}
                     </div>
                     <div className="card-action">
-                        <input type="submit" className="btn" value="Заселиться в комнату"/>
+                        <input type="submit" className="btn" value="Заселиться в комнату"
+                            onClick = {this.settle}/>
                     </div>
                 </div>
             </div>
