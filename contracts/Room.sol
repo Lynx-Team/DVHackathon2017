@@ -26,6 +26,7 @@ contract Room is Owned {
             return false;
         occupancy++;
         r.SetRoom(num);
+        r.SetDorm(dormNum);
         gender = r.gender();
         rs[occupancy - 1] = r;
     }
