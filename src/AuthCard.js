@@ -16,30 +16,28 @@ class AuthCard extends Component {
         let pass  = this.password.value;
         var self = this;
 
-        for (let i = 0; i < window.users.length; i++) {
-            if (login === window.users[i].login) {
-                if (pass === window.users[i].password) {
-                    window.campusInstance.ResidentExists.call(login, function(err, res) {
-                        if (res) {
-                            window.campusInstance.GetResident.call(login, function(err, res){
-                                window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
-                                self.props.auth();
-                            });
-                        }
-                        else {
-                            window.campusInstance.RegisterResident(window.users[i].gender, login, function(err, res) {
-                                if (err)
-                                    return;
-
-                                window.campusInstance.GetResident.call(login, function(err, res){
-                                    window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
-                                    self.props.auth();
-                                });
-                            })
-                        }
+        var user = window.users.get(login);
+        console.log(user);
+        if (pass === user.password) {
+            window.campusInstance.ResidentExists.call(login, function(err, res) {
+                if (res) {
+                    window.campusInstance.GetResident.call(login, function(err, res){
+                        window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
+                        self.props.auth();
                     });
                 }
-            }
+                else {
+                    window.campusInstance.RegisterResident(user.gender, login, function(err, res) {
+                        if (err)
+                            return;
+
+                        window.campusInstance.GetResident.call(login, function(err, res){
+                            window.residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
+                            self.props.auth();
+                        });
+                    })
+                }
+            });
         }
     }
 

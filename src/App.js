@@ -36,14 +36,12 @@ class App extends Component {
         let campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
         window.campusInstance = campusInstance;
 
-        window.users =
-        [
-            {login: "terekhov.de", password: "qwe123", gender: 1},
-            {login: "prikhodko.od", password: "wert", gender: 1},
-            {login: "slasten.td", password: "std", gender: 1},
-            {login: "gurew.av", password: "gav", gender: 1},
+        var users = [ ["terekhov.de",  {password: "qwe123", gender: 1} ],
+                      ["prikhodko.od", {password: "wert",   gender: 1} ],
+                      ["slasten.td",   {password: "std",    gender: 1} ],
+                      ["gurew.av",     {password: "gav",    gender: 1} ], ]
 
-        ];
+        window.users = new Map(users);
     }
 
     home() {
