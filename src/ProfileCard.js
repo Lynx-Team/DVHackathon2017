@@ -4,6 +4,8 @@ import './css/mainPageStyles.css'
 import ResidentDiv from './ResidentDiv';
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
+import Room from '../build/contracts/Room.json';
+import Resident from '../build/contracts/Resident.json';
 
 class ProfileCard extends Component {
     constructor() {
@@ -15,7 +17,8 @@ class ProfileCard extends Component {
             capacity: 0,
             occupancy: 0,
             gender: '-',
-            isFound: false
+            isFound: false,
+            members: []
         };
 
         var self = this;
@@ -36,11 +39,28 @@ class ProfileCard extends Component {
 
                 window.campusInstance.GetRoomInfo(self.state.myDerm, self.state.myRoom, function(err, res) {
                     if (res[3]) {
-                        let occupancy = res[1].toNumber();
+                        var occupancy = res[1].toNumber();
 
-                        for (let i = 0; i < occupancy; i++) {
-
-                        }
+                        window.campusInstance.GetRoom(self.state.myDerm, self.state.myRoom,
+                            function(err, res) {
+                                let roomInst = window.web3RPC.eth.contract(Room.abi).at(res);
+                                for (let i = 0; i < occupancy; i++) {
+                                    roomInst.rs(i, function(err, res) {
+                                        let residentInstance = window.web3RPC.eth.contract(Resident.abi).at(res);
+                                        residentInstance.login(function(err, res) {
+                                            self.setState({
+                                                myRoom: self.state.myRoom,
+                                                myDerm: self.state.myDerm,
+                                                capacity: self.state.capacity,
+                                                occupancy: self.state.occupancy,
+                                                gender: self.state.gender,
+                                                isFound: self.state.isFound,
+                                                members: [...self.state.members, res]
+                                            });
+                                        });
+                                    });
+                                }
+                            });
 
                         self.setState({
                             myRoom: self.state.myRoom,
@@ -48,7 +68,8 @@ class ProfileCard extends Component {
                             capacity: res[0].toNumber(),
                             occupancy: res[1].toNumber(),
                             gender: res[2].toNumber() === 0 ? 'Пустая' : res[2].toNumber() === 1 ? 'М' : 'Ж',
-                            isFound: true
+                            isFound: true,
+                            members: self.state.members
                         });
                     }
                     else {
@@ -58,7 +79,8 @@ class ProfileCard extends Component {
                             capacity: 0,
                             occupancy: 0,
                             gender: '-',
-                            isFound: false
+                            isFound: false,
+                            members: self.state.members
                         });
                     }
                 });
@@ -67,6 +89,11 @@ class ProfileCard extends Component {
     }
 
     render() {
+        let rows = [];
+        for (let i = 0; i < this.state.members.length; i++) {
+            rows.push(<ResidentDiv i={i + 1} login={this.state.members[i]}/>);
+        }
+
         return (
             <div className="row">
                 <div className="col s12 m4 l10 offset-l1">
@@ -76,8 +103,7 @@ class ProfileCard extends Component {
                             <FieldDiv text={"Макслимальное кол-во проживающих: " + this.state.capacity}/>
                             <FieldDiv text={"Кол-во проживающих: " + this.state.occupancy}/>
                             <FieldDiv text={"Пол: " + this.state.gender}/>
-                            <ResidentDiv />
-                            <ResidentDiv />
+                            {rows}
                         </div>
                         <div className="card-action">
                             <input type="submit" className="btn" value="Выселиться" onClick={this.props.auth}/>

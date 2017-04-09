@@ -9,8 +9,8 @@ class ResidentDiv extends Component {
                 <div className="row"></div>
                 <div className="row">
                    <div className="input-field">
-                        <input value="Resident Name here" id="name" type="text" className="validate" readOnly/>
-                        <label className="active" htmlFor="name">Житель №...</label>
+                        <input value={this.props.login} id="name" type="text" readOnly/>
+                        <label className="active" htmlFor="name">Житель № {this.props.i}</label>
                     </div>
                 </div>
             </div>
