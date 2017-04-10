@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Room from '../build/contracts/Room.json'; 
+import Room from '../build/contracts/Room.json';
 import Resident from '../build/contracts/Resident.json';
 
 import './css/mainPageStyles.css';
@@ -89,8 +89,15 @@ class RoomInfo extends Component {
                         {answer}
                     </div>
                     <div className="card-action">
-                        <input type="submit" className="btn" value="Заселиться в комнату"
-                            onClick={this.settle}/>
+                        <div className="col s6 m6 l6">
+                            <input type="submit" className="btn" value="Заселиться в комнату"
+                                onClick={this.settle}/>
+                        </div>
+                        <div className="col s6 m6 l6">
+                            <a href="https://github.com/Lynx-Team/DVHackathon2017/tree/master/contracts">
+                                <input type="button" className="btn" value="Правила проживания"></input>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
