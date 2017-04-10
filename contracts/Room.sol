@@ -35,6 +35,12 @@ contract Room is Owned {
         rs[occupancy - 1] = r;
     }
 
+    function GetResident(uint ind) constant external returns(Resident r) {
+        if (ind > occupancy) throw;
+
+        r = rs[ind];
+    }
+
     function SetDorm(uint _num) {
         dormNum = _num;
     }

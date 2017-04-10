@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import Room from '../build/contracts/Resident.json'; 
+import Room from '../build/contracts/Room.json'; 
+import Resident from '../build/contracts/Resident.json';
 
 import './css/mainPageStyles.css';
-import ResidenDiv from './ResidentDiv'
+import ResidentDiv from './ResidentDiv'
 import FieldDiv from './FieldDiv'
 import TittleDiv from './TittleDiv'
 import Preload from './Preload'
 
 class RoomInfo extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            size: null,
-            fullness: null,
-            sex: null,
-            isFind: null
-        }
+    constructor() {
+        super();
 
         this.updateInfo = this.updateInfo.bind(this);
         this.settle = this.settle.bind(this);
@@ -33,39 +27,44 @@ class RoomInfo extends Component {
     updateInfo() {
         var dorNumber = this.props.dorNumber;
         var roomNumber = this.props.roomNumber;
-        var sex = ['Пустая', 'М', 'Ж'];
+        var gender = ['Пустая', 'М', 'Ж'];
         var self = this;
 
         window.campusInstance.GetRoomInfo.call(dorNumber, roomNumber, (err, res) => {
             self.setState({
                 size: res[0].toNumber(),
                 fullness: res[1].toNumber(),
-                sex: sex[res[2].toNumber()],
-                isFind: res[3]
+                sex: gender[res[2].toNumber()],
+                isFind: res[3],
+                members: this.state.members
             });
         });
     }
 
     render() {
         let answer;
+        var residents;
         let tittle = "Комната номер " + this.props.dorNumber + "." + this.props.roomNumber;
-        if (this.props.isUpdate) {
-            this.updateInfo();
-            this.props = {
-                dorNumber: this.props.dorNumber,
-                roomNumber: this.props.roomNumber,
-                isUpdate: false
-            };
-        }
 
-        if (this.state.isFind == null) {
+        if (this.props.isFind == null) {
             answer = (
                 <Preload />
             );
         }
-        else if (this.state.isFind) {
-            let txt = "Заселенность: " +  this.state.fullness + "/" + this.state.size;
-            let txt1 = "Пол: " +  this.state.sex;
+        else if (this.props.isFind) {
+            let txt = "Заселенность: " +  this.props.fullness + "/" + this.props.size;
+            let txt1 = "Пол: " +  this.props.sex;
+            var login;
+            var self = this;
+
+
+
+            var rows = [];
+            if (this.props.members !== null) {
+                for (let i = 0; i < this.props.members.length; i++) {
+                    rows.push(<ResidentDiv i={i + 1} login={this.props.members[i]}/>);
+                }
+            }
 
             answer = (
                 <div>
@@ -73,7 +72,8 @@ class RoomInfo extends Component {
                     <FieldDiv text={txt} />
                     <FieldDiv text={txt1} />
                 </form>
-                    <ResidenDiv />
+                   {residents}
+                   {rows}
                 </div>
             );
         }

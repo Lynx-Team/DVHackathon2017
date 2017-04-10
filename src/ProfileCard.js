@@ -55,7 +55,7 @@ class ProfileCard extends Component {
                                                 occupancy: self.state.occupancy,
                                                 gender: self.state.gender,
                                                 isFound: self.state.isFound,
-                                                members: [...self.state.members, res]
+                                                members: [...self.state.members, window.users.get(res).FIO]
                                             });
                                         });
                                     });

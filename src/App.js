@@ -32,14 +32,14 @@ class App extends Component {
 
         web3RPC.eth.defaultAccount = web3RPC.eth.accounts[0];
         window.web3RPC = web3RPC;
-        window.campusContractAddr = '0x151a06f39f12c41940efa0b29a8f60eef5cd5760';
+        window.campusContractAddr = '0xe647ccd607ed05d324d94ec1bdd510868dea5185';
         let campusInstance = window.web3RPC.eth.contract(Campus.abi).at(window.campusContractAddr);
         window.campusInstance = campusInstance;
 
-        var users = [ ["terekhov.de",  {password: "qwe123", gender: 1} ],
-                      ["prikhodko.od", {password: "wert",   gender: 1} ],
-                      ["slasten.td",   {password: "std",    gender: 1} ],
-                      ["gurew.av",     {password: "gav",    gender: 1} ], ]
+        var users = [ ["terekhov.de",  {password: "qwe123", gender: 1, FIO: "Терехов Д.Е."} ],
+                      ["prikhodko.od", {password: "wert",   gender: 1, FIO: "Приходько О.Д."} ],
+                      ["slasten.td",   {password: "std",    gender: 1, FIO: "Сластен Т.Д."} ],
+                      ["gurew.av",     {password: "gav",    gender: 1, FIO: "Гурьев А. В."} ], ]
 
         window.users = new Map(users);
     }

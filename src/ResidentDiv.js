@@ -10,7 +10,7 @@ class ResidentDiv extends Component {
                 <div className="row">
                    <div className="input-field">
                         <input value={this.props.login} id="name" type="text" readOnly/>
-                        <label className="active" htmlFor="name">Житель № {this.props.i}</label>
+                        <label className="active" htmlFor="name">Житель № {this.props.i}: {this.props.name}</label>
                     </div>
                 </div>
             </div>
