@@ -44,7 +44,7 @@ class RoomInfo extends Component {
     render() {
         let answer;
         var residents;
-        let tittle = "Комната номер " + this.props.dorNumber + "." + this.props.roomNumber;
+        let tittle = "Общежитие: " + this.props.dorNumber + " | Комната: " + this.props.roomNumber;
 
         if (this.props.isFind == null) {
             answer = (

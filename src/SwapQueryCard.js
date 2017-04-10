@@ -88,19 +88,17 @@ class SwapQueryCard extends Component {
     }
 
     query(record) {
+    	var numberRoom = record.dorm + '.' + record.room;
         return (
             <div>
                 <div className="row">
-                    <ResidentDiv/>
-                    <div className="col s12">
-                        Общежитие номер {record.dorm}
-                    </div>
+                    <ResidentDiv i="1" login="Приходько О.Д."/>
                     <div className="col s12">
                         <div className="s6 offset-s2">
                             Комната
                         </div>
                         <div className="s6 offset-s2">
-                            <a className="waves-effect waves-light btn" onClick={(e) => this.showRoomInfo(e, record.room)}>{record.room}</a>
+                            <a className="waves-effect waves-light btn" onClick={(e) => this.showRoomInfo(e, record.room)}>{numberRoom}</a>
                         </div>
                     </div>
                 </div>
