@@ -87,7 +87,7 @@ class RoomInfo extends Component {
                     <div className="card-content">
                         <TittleDiv text={tittle}/>
                         {answer}
-                    </div>
+
                     <div className="card-action">
                         <div className="col s6 m6 l6">
                             <input type="submit" className="btn" value="Заселиться в комнату"
@@ -98,6 +98,7 @@ class RoomInfo extends Component {
                                 <input type="button" className="btn" value="Правила проживания"></input>
                             </a>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
