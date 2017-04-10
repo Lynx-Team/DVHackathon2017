@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Room from '../build/contracts/Room.json'; 
+import Resident from '../build/contracts/Resident.json';
 
 import './css/mainPageStyles.css'
 import ResidentDiv from './ResidentDiv';
@@ -11,35 +13,94 @@ class SwapQueryCard extends Component {
 
     constructor(){
         super();
-        this.state = {roomInfo: null};
+        this.state = {
+        	size: null,
+            fullness: null,
+            sex: null,
+            isFind: false,
+        	roomInfo: null,
+        	queriesBlocks: null
+        };
         this.showRoomInfo = this.showRoomInfo.bind(this);
         this.query = this.query.bind(this);
+        var adr = window.residentInstance.address;
+        var ref = window.db.ref().child('SwapQueries').child(adr); 
+        this.queries = ref.once('value');
+        this.record = null;
     }
 
-    showRoomInfo(e, room) {
-        console.log(e);
-        this.setState({roomInfo: <RoomInfo dorNumber={this.props.dormitory}
-                                           roomNumber={room} isUpdate="true"/>})
+    showRoomInfo(e, record) {
+    	var self = this;
+    	var gender = ['Пустая', 'М', 'Ж'];
+    	window.campusInstance.GetRoomInfo(self.record.dorm, self.	record.room, (err, res) => {
+            self.setState({
+                size: res[0].toNumber(),
+                fullness: res[1].toNumber(),
+                sex: gender[res[2].toNumber()],
+                isFind: res[3],
+                members: self.state.members,
+                roomInfo: <RoomInfo dorNumber={self.record.dorm} roomNumber={self.record.room} 
+                            size={res[0].toNumber()} fullness={res[1].toNumber()} sex={gender[res[2].toNumber()]} isFind={res[3]} members={[]} />,
+                queriesBlocks: self.state.queriesBlocks
+            });
+
+            window.campusInstance.GetRoom(self.record.dorm, self.record.room, function(err, res) {
+                    let roomAddr = res;
+                    let roomInstance = window.web3RPC.eth.contract(Room.abi).at(roomAddr);
+
+                    
+                    for(let i = 0; i < self.state.fullness; i++) {
+                        roomInstance.GetResident(i, function (err, res) { 
+                            let resAddr = res;
+                            let resInstance = window.web3RPC.eth.contract(Resident.abi).at(resAddr);
+
+                            resInstance.login(function (err, res) { 
+                                let arr = "undefined" === typeof self.state.members ? [] : self.state.members;
+                                self.setState({
+                                    size: self.state.size,
+                                    fullness: self.state.fullness,
+                                    sex: self.state.sex,
+                                    isFind: self.state.isFind,
+                                    members: [...arr, window.users.get(res).FIO],
+                                    roomInfo: <RoomInfo dorNumber={self.record.dorm} roomNumber={self.record.room} 
+                                        size={self.state.size} fullness={self.state.fullness} sex={self.state.sex} isFind={self.state.isFind} members={[...arr, window.users.get(res).FIO]} />,
+                                    queriesBlocks: self.state.queriesBlocks
+                                });
+                            });
+                        });
+                    }
+            });
+        });
     }
 
-    query() {
-        if (this.props.isUpdate) {
-            this.updateRooms();
-            this.props = {isUpdate: false, dormitory: this.dormitory};
-        }
+    componentWillMount() {
+        var self = this;
+        this.queries.then(function(res){
+
+        	self.queriesBlocks = [];
+        	self.record = res.val();
+        	self.queriesBlocks.push(self.query(res.val()));
+        	self.setState({
+        		roomInfo: self.state.roomInfo,
+        		queriesBlocks: self.queriesBlocks
+        	});
+        });	
+    }
+
+    query(record) {
         return (
             <div>
                 <div className="row">
                     <ResidentDiv/>
                     <div className="col s12">
-                        Общежитие номер ...
+                        Общежитие номер {record.dorm}
                     </div>
                     <div className="col s12">
                         <div className="s6 offset-s2">
                             Комната
                         </div>
                         <div className="s6 offset-s2">
-                            <a className="waves-effect waves-light btn" onClick={(e) => this.showRoomInfo(e, 100 + '')}>100</a>
+                            <a className="waves-effect waves-light btn" onClick={(e) => this.showRoomInfo(e, record.room)}>{record.room}</a>
                         </div>
                     </div>
                 </div>
@@ -57,19 +118,13 @@ class SwapQueryCard extends Component {
     }
 
     render() {
-        var querys = [];
-        let querysNumber = 10;
-        for (var i = 0; i < querysNumber; i++){
-            querys.push(this.query())
-        }
-
         return (
             <div className="row">
                 <div className="col s6 m4 l5 offset-l1 kek1">
                     <div className="card">
                         <div className="card-content">
                             <TittleDiv text="Запросы на обмен комнатами"/>
-                            {querys}
+                            {this.state.queriesBlocks}
                         </div>
                     </div>
                 </div>
